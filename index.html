@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal portfolio of Yosef Praditia Sotyohadi, a Computer Science student specializing in full-stack development and UI design.">
+    <title>Yosef Praditia | Code & Visuals</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <header class="header">
+        <nav class="header__nav nav">
+            <a href="#home" class="nav__logo">Yosef.dev</a>
+            
+            <ul class="nav__list nav-links">
+                <li class="nav__item"><a href="#home" class="nav__link">Home</a></li>
+                <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+                <li class="nav__item"><a href="#projects" class="nav__link">Projects</a></li>
+                <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+            </ul>
+
+            <div class="nav__controls">
+                <button id="theme-toggle" class="theme-toggle btn--icon" aria-label="Toggle dark mode">
+                    <i class="icon-placeholder">🌙</i>
+                </button>
+                
+                <button class="hamburger btn--icon" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-list">
+                    <span class="hamburger__line"></span>
+                    <span class="hamburger__line"></span>
+                    <span class="hamburger__line"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+        <section id="home" class="hero section">
+            <div class="hero__container container">
+                <h1 class="hero__title">Logic Meets Lens.</h1>
+                <h2 class="hero__subtitle">Aspiring developer with a designer's eye.</h2>
+                <p class="hero__desc">I'm Yosef, a 3rd-semester Computer Science student blending structured programming with a deep passion for visual aesthetics and user experience.</p>
+                <a href="#projects" class="btn btn--primary">View My Work</a>
+            </div>
+        </section>
+
+        <section id="about" class="about section">
+            <div class="about__container container grid-2-col">
+                <figure class="about__image-wrapper">
+                    <img src="https://placehold.co/400x400/png?text=Yosef+Profile" alt="Portrait of Yosef Praditia" class="about__image" width="400" height="400">
+                    <figcaption class="sr-only">Yosef Praditia Sotyohadi</figcaption>
+                </figure>
+                
+                <div class="about__content">
+                    <h3 class="section-title">About Me</h3>
+                    <p class="about__text">As a Computer Science student at Binus University, I thrive on building robust, logical structures using HTML, Java, and Python. Beyond the code, my passion for photography and UI design in Figma trains my eye for meticulous detail and compelling visual narratives.</p>
+                    <p class="about__text">Whether I'm orchestrating seamless workflows as an Event Organizer or structuring complex backend data, my ultimate goal is to bridge the gap between technical functionality and human-centric design.</p>
+                     <a href="assets/documents/resume.pdf" class="btn btn--secondary" aria-label="Download Resume PDF" download>Download Resume</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects section">
+            <div class="projects__container container">
+                <h3 class="section-title">Featured Projects</h3>
+                
+                <div class="projects__grid">
+                    
+                    <article class="project-card">
+                        <figure class="project-card__image-wrapper">
+                            <img src="https://placehold.co/600x400/png?text=Calculator+App" alt="Screenshot of Calculator App" class="project-card__image">
+                        </figure>
+                        <div class="project-card__content">
+                            <h4 class="project-card__title">Logic Calculator</h4>
+                            <p class="project-card__desc">A comprehensive study in mathematical logic, algorithm efficiency, and robust user error handling.</p>
+                            <ul class="project-card__tech-list">
+                                <li class="project-card__tech-item">Java</li>
+                                <li class="project-card__tech-item">Python</li>
+                            </ul>
+                            <div class="project-card__links">
+                                <a href="#" class="btn btn--link" aria-label="View Calculator App code on GitHub">View Code</a>
+                                <a href="#" class="btn btn--link" aria-label="View Calculator App live demo">Live Demo</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <figure class="project-card__image-wrapper">
+                            <img src="https://placehold.co/600x400/png?text=To-Do+List" alt="Screenshot of To-Do List App" class="project-card__image">
+                        </figure>
+                        <div class="project-card__content">
+                            <h4 class="project-card__title">Dynamic To-Do List</h4>
+                            <p class="project-card__desc">An interactive task manager focusing on dynamic DOM manipulation and seamless user workflow management.</p>
+                            <ul class="project-card__tech-list">
+                                <li class="project-card__tech-item">HTML5</li>
+                                <li class="project-card__tech-item">CSS3</li>
+                                <li class="project-card__tech-item">JavaScript</li>
+                            </ul>
+                            <div class="project-card__links">
+                                <a href="#" class="btn btn--link" aria-label="View To-Do List code on GitHub">View Code</a>
+                                <a href="#" class="btn btn--link" aria-label="View To-Do List live demo">Live Demo</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <figure class="project-card__image-wrapper">
+                            <img src="https://placehold.co/600x400/png?text=Blog+Layout" alt="Screenshot of Blog Layout" class="project-card__image">
+                        </figure>
+                        <div class="project-card__content">
+                            <h4 class="project-card__title">Responsive Blog UI</h4>
+                            <p class="project-card__desc">A modern blog interface emphasizing responsive web design, fluid typography, and clear visual hierarchy.</p>
+                            <ul class="project-card__tech-list">
+                                <li class="project-card__tech-item">Figma</li>
+                                <li class="project-card__tech-item">HTML5</li>
+                                <li class="project-card__tech-item">CSS Grid</li>
+                            </ul>
+                            <div class="project-card__links">
+                                <a href="#" class="btn btn--link" aria-label="View Blog Layout code on GitHub">View Code</a>
+                                <a href="#" class="btn btn--link" aria-label="View Blog Layout live demo">Live Demo</a>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact section">
+            <div class="contact__container container">
+                <h3 class="section-title">Get In Touch</h3>
+                
+                <form action="#" method="POST" class="contact__form form">
+                    <div class="form__group">
+                        <label for="name" class="form__label">Name</label>
+                        <input type="text" id="name" name="name" class="form__input" required>
+                    </div>
+                    
+                    <div class="form__group">
+                        <label for="email" class="form__label">Email</label>
+                        <input type="email" id="email" name="email" class="form__input" required>
+                    </div>
+                    
+                    <div class="form__group">
+                        <label for="message" class="form__label">Message</label>
+                        <textarea id="message" name="message" class="form__textarea" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn--submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer__container container">
+            <p class="footer__copy">&copy; 2026 Yosef Praditia. All rights reserved.</p>
+            
+            <ul class="footer__socials">
+                <li><a href="#" class="social__link" aria-label="Link to GitHub">
+                    <i class="icon-placeholder">GH</i>
+                </a></li>
+                <li><a href="#" class="social__link" aria-label="Link to LinkedIn">
+                    <i class="icon-placeholder">IN</i>
+                </a></li>
+                <li><a href="#" class="social__link" aria-label="Link to Twitter">
+                    <i class="icon-placeholder">TW</i>
+                </a></li>
+            </ul>
+        </div>
+    </footer>
+
+</body>
+</html>

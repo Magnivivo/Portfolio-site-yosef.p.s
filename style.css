@@ -1,0 +1,392 @@
+/* ================= CSS VARIABLES (Light & Dark Mode) ================= */
+:root {
+    --bg-color: #f8fafc;
+    --text-color: #0f172a;
+    --card-bg: #ffffff;
+    --accent-color: #3b82f6;
+    --accent-hover: #2563eb;
+    --nav-bg: rgba(255, 255, 255, 0.7); /* For glassmorphism */
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* The JS will toggle this class on the <body> */
+.dark-mode {
+    --bg-color: #0f172a;
+    --text-color: #f8fafc;
+    --card-bg: #1e293b;
+    --accent-color: #60a5fa;
+    --accent-hover: #3b82f6;
+    --nav-bg: rgba(15, 23, 42, 0.8);
+    --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+/* ================= RESET & GLOBAL ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section {
+    padding: 5rem 0;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* ================= NAVBAR & HEADER ================= */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav__logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav__link {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+}
+
+.nav__link:hover {
+    color: var(--accent-color);
+}
+
+.nav__controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* ================= BUTTONS & CONTROLS ================= */
+.btn {
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn--primary, .btn--submit {
+    background-color: var(--accent-color);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+}
+
+.btn--primary:hover, .btn--submit:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+}
+
+.btn--link {
+    color: var(--text-color);
+    background: transparent;
+    padding: 0.5rem 0;
+}
+
+.btn--link:hover {
+    color: var(--accent-color);
+}
+
+/* Theme Toggle Button */
+#theme-toggle {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+}
+
+#theme-toggle:hover {
+    background-color: var(--shadow-color);
+}
+
+/* Hamburger Menu Base (Hidden on Desktop) */
+.hamburger {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0.5rem;
+}
+
+.hamburger__line {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color);
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* ================= HERO SECTION ================= */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 80px; /* Offset for fixed header */
+}
+
+.hero__container {
+    max-width: 800px;
+}
+
+.hero__title {
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero__subtitle {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+}
+
+.hero__desc {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.8;
+}
+
+/* ================= PROJECTS SECTION ================= */
+.projects__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+
+
+.project-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px var(--shadow-color);
+}
+
+.project-card__image-wrapper {
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.project-card__title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.project-card__desc {
+    margin-bottom: 1rem;
+    flex-grow: 1; /* Pushes links to the bottom if descriptions vary in length */
+}
+
+.project-card__tech-list {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.project-card__tech-item {
+    background-color: var(--shadow-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.project-card__links {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+}
+
+/* ================= MEDIA QUERIES (Mobile) ================= */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex; /* Show hamburger on mobile */
+    }
+
+    .nav-links {
+        display: none; /* Hide desktop links by default on mobile */
+        /* Note: We will handle the mobile menu display toggle in script.js */
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--card-bg);
+        flex-direction: column;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 10px 15px var(--shadow-color);
+    }
+
+    .nav-links.active {
+        display: flex; /* Class added by JS to show menu */
+    }
+
+    .hero__title {
+        font-size: 2.5rem;
+    }
+}
+
+/* ================= FORMS ================= */
+.form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form__group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+}
+
+.form__label {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.form__input,
+.form__textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--shadow-color); /* Uses your existing dark mode variables */
+    border-radius: 8px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.form__input:focus,
+.form__textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+/* ================= FOOTER ================= */
+.footer {
+    background-color: var(--card-bg);
+    padding: 3rem 0;
+    margin-top: 4rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.footer__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footer__socials {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.social__link {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.social__link:hover {
+    color: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+/* ================= GRID LAYOUTS ================= */
+.grid-2-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+/* Make it stack on mobile screens */
+@media (max-width: 768px) {
+    .grid-2-col {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
