@@ -212,31 +212,37 @@ img {
 
 /* ================= PROJECTS SECTION ================= */
 .projects__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 100vh; /* Big gap so you actually have to scroll down to see the next card */
+    padding-bottom: 50vh;
+    width: 100%;
 }
-
-
 
 .project-card {
     background-color: var(--card-bg);
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px var(--shadow-color);
-    transition: all 0.3s ease-in-out;
-    display: flex;
-    flex-direction: column;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.15); /* Fixed typo here */
+    width: 100%;
+    
+    /* THE STICKY MAGIC */
+    position: sticky;
+    transform-origin: top center;
+    will-change: transform; 
 }
 
+.project-card:nth-child(1) { top: 100px; z-index: 1; }
+.project-card:nth-child(2) { top: 120px; z-index: 2; }
+.project-card:nth-child(3) { top: 140px; z-index: 3; }
+
 .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px var(--shadow-color);
+    box-shadow: 0 10px 15px var(--shadow-color); /* Removed the transform conflict */
 }
 
 .project-card__image-wrapper {
     margin-bottom: 1.5rem;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
 }
 
@@ -247,7 +253,7 @@ img {
 
 .project-card__desc {
     margin-bottom: 1rem;
-    flex-grow: 1; /* Pushes links to the bottom if descriptions vary in length */
+    flex-grow: 1; 
 }
 
 .project-card__tech-list {
@@ -272,14 +278,22 @@ img {
 }
 
 /* ================= MEDIA QUERIES (Mobile) ================= */
+/* Combined your two media queries into one clean block */
 @media (max-width: 768px) {
-    .hamburger {
-        display: flex; /* Show hamburger on mobile */
+    /* Mobile Card Stacking Spacing */
+    .projects__grid {
+        gap: 80vh; 
     }
+    .project-card:nth-child(1) { top: 80px; }
+    .project-card:nth-child(2) { top: 95px; }
+    .project-card:nth-child(3) { top: 110px; }
 
+    /* Mobile Hamburger Menu */
+    .hamburger {
+        display: flex; 
+    }
     .nav-links {
-        display: none; /* Hide desktop links by default on mobile */
-        /* Note: We will handle the mobile menu display toggle in script.js */
+        display: none; 
         position: absolute;
         top: 100%;
         left: 0;
@@ -290,11 +304,9 @@ img {
         text-align: center;
         box-shadow: 0 10px 15px var(--shadow-color);
     }
-
     .nav-links.active {
-        display: flex; /* Class added by JS to show menu */
+        display: flex; 
     }
-
     .hero__title {
         font-size: 2.5rem;
     }

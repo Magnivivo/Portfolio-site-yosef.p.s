@@ -62,3 +62,38 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+// ================= DYNAMIC 3D CARD STACKING =================
+document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.project-card');
+
+    window.addEventListener('scroll', () => {
+        cards.forEach((card, index) => {
+            let scale = 1;
+            
+            // Loop through ALL cards that come after the current one
+            for (let i = index + 1; i < cards.length; i++) {
+                const nextCard = cards[i];
+                const cardRect = card.getBoundingClientRect();
+                const nextRect = nextCard.getBoundingClientRect();
+                
+                // Calculate the distance between the top edges
+                const distance = nextRect.top - cardRect.top;
+                
+                // If the next card gets within 600px, it starts "pressing down" on this card
+                if (distance < 600) {
+                    // Converts distance into a percentage (0.0 to 1.0)
+                    const progress = 1 - (distance / 600);
+                    // Shrink the card by 5% for EVERY card that stacks on top of it
+                    scale -= (0.05 * progress); 
+                }
+            }
+            
+            // Safety cap so it doesn't shrink into oblivion
+            scale = Math.max(0.7, scale);
+            
+            // Apply the new accumulated scale!
+            card.style.transform = `scale(${scale})`;
+        });
+    });
+});
