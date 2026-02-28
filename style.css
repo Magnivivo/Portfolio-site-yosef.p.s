@@ -215,7 +215,13 @@ img {
     display: flex;
     flex-direction: column;
     gap: 100vh; /* Big gap so you actually have to scroll down to see the next card */
-    padding-bottom: 50vh;
+    width: 100%;
+}
+
+.projects__grid::after {
+    content: '';
+    display: block;
+    height: 50vh; /* Keeps the cards locked on screen before the footer appears */
     width: 100%;
 }
 
