@@ -11,7 +11,7 @@ class CustomCursor {
         this.trailElements = [];
         this.maxTrails = 15;
         this.isEnabled = !window.matchMedia('(pointer: coarse)').matches;
-        
+
         this.init();
     }
 
@@ -123,7 +123,7 @@ class DarkModeToggle {
         // Listen for clicks on the theme button
         this.themeToggleBtn.addEventListener('click', () => {
             this.body.classList.toggle('dark-mode');
-            
+
             if (this.body.classList.contains('dark-mode')) {
                 localStorage.setItem('theme', 'dark');
                 if (this.themeIcon) this.themeIcon.textContent = '☀️';
@@ -133,8 +133,8 @@ class DarkModeToggle {
             }
 
             // Dispatch custom event for other components
-            window.dispatchEvent(new CustomEvent('themeChange', { 
-                detail: { theme: this.body.classList.contains('dark-mode') ? 'dark' : 'light' } 
+            window.dispatchEvent(new CustomEvent('themeChange', {
+                detail: { theme: this.body.classList.contains('dark-mode') ? 'dark' : 'light' }
             }));
         });
     }
@@ -175,8 +175,8 @@ class HamburgerMenu {
 
         // Close when clicking outside
         document.addEventListener('click', (e) => {
-            if (this.isOpen && 
-                !this.hamburgerBtn.contains(e.target) && 
+            if (this.isOpen &&
+                !this.hamburgerBtn.contains(e.target) &&
                 !this.navLinks.contains(e.target)) {
                 this.close();
             }
@@ -218,7 +218,7 @@ class SmoothScroll {
             anchor.addEventListener('click', (e) => {
                 e.preventDefault();
                 const targetId = anchor.getAttribute('href');
-                
+
                 // Skip if the href is just a standalone "#"
                 if (targetId === '#') return;
 
@@ -253,28 +253,28 @@ class Dynamic3DCards {
         window.addEventListener('scroll', () => {
             this.cards.forEach((card, index) => {
                 let scale = 1;
-                
+
                 // Loop through ALL cards that come after the current one
                 for (let i = index + 1; i < this.cards.length; i++) {
                     const nextCard = this.cards[i];
                     const cardRect = card.getBoundingClientRect();
                     const nextRect = nextCard.getBoundingClientRect();
-                    
+
                     // Calculate the distance between the top edges
                     const distance = nextRect.top - cardRect.top;
-                    
+
                     // If the next card gets within 600px, it starts "pressing down" on this card
                     if (distance < 600) {
                         // Converts distance into a percentage (0.0 to 1.0)
                         const progress = 1 - (distance / 600);
                         // Shrink the card by 5% for EVERY card that stacks on top of it
-                        scale -= (0.05 * progress); 
+                        scale -= (0.05 * progress);
                     }
                 }
-                
+
                 // Safety cap so it doesn't shrink into oblivion
                 scale = Math.max(0.7, scale);
-                
+
                 // Apply the new accumulated scale!
                 card.style.transform = `scale(${scale})`;
             });
@@ -423,7 +423,7 @@ class ParallaxEffect {
 
     handleScroll() {
         const scrolled = window.pageYOffset;
-        
+
         this.orbs.forEach((orb, index) => {
             const speed = 0.1 + (index * 0.05);
             const yPos = scrolled * speed;
@@ -487,12 +487,12 @@ class ClickParticles {
 
     createParticles(x, y) {
         const colors = ['#06b6d4', '#d946ef', '#8b5cf6', '#ec4899'];
-        
+
         for (let i = 0; i < 12; i++) {
             const particle = document.createElement('div');
             const angle = (Math.PI * 2 * i) / 12;
             const velocity = 50 + Math.random() * 50;
-            
+
             particle.style.cssText = `
                 position: fixed;
                 left: ${x}px;
@@ -505,20 +505,20 @@ class ClickParticles {
                 z-index: 99999;
                 box-shadow: 0 0 15px currentColor;
             `;
-            
+
             document.body.appendChild(particle);
 
             const destX = Math.cos(angle) * velocity;
             const destY = Math.sin(angle) * velocity;
 
             const animation = particle.animate([
-                { 
-                    transform: 'translate(0, 0) scale(1)', 
-                    opacity: 1 
+                {
+                    transform: 'translate(0, 0) scale(1)',
+                    opacity: 1
                 },
-                { 
-                    transform: `translate(${destX}px, ${destY}px) scale(0)`, 
-                    opacity: 0 
+                {
+                    transform: `translate(${destX}px, ${destY}px) scale(0)`,
+                    opacity: 0
                 }
             ], {
                 duration: 600,
@@ -564,6 +564,45 @@ class MagneticButtons {
 }
 
 // ========================================
+// RESUME DOWNLOAD MANAGER (ANTI-SPAM)
+// ========================================
+class ResumeDownloadManager {
+    constructor() {
+        this.downloadBtn = document.querySelector('a[href*="resume.pdf"]');
+        this.cooldownMinutes = 5; // User has to wait 5 minutes between downloads
+        this.init();
+    }
+
+    init() {
+        if (!this.downloadBtn) return;
+
+        this.downloadBtn.addEventListener('click', (e) => this.handleDownload(e));
+    }
+
+    handleDownload(e) {
+        const lastDownloadTime = localStorage.getItem('lastResumeDownload');
+        const currentTime = new Date().getTime();
+
+        if (lastDownloadTime) {
+            const timeDiff = currentTime - parseInt(lastDownloadTime, 10);
+            const minutesDiff = Math.floor(timeDiff / 1000 / 60);
+
+            if (minutesDiff < this.cooldownMinutes) {
+                e.preventDefault(); // Stop the download
+                const waitTime = this.cooldownMinutes - minutesDiff;
+
+                // Use the existing ContactForm message system to show an alert, or a basic alert if missing
+                alert(`Security Protection: Please wait ${waitTime} minute(s) before downloading the resume again.`);
+                return;
+            }
+        }
+
+        // Allow download and set new time
+        localStorage.setItem('lastResumeDownload', currentTime.toString());
+    }
+}
+
+// ========================================
 // PERFORMANCE UTILITIES
 // ========================================
 function debounce(func, wait) {
@@ -580,7 +619,7 @@ function debounce(func, wait) {
 
 function throttle(func, limit) {
     let inThrottle;
-    return function(...args) {
+    return function (...args) {
         if (!inThrottle) {
             func.apply(this, args);
             inThrottle = true;
@@ -606,6 +645,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new ActiveNavigation();
     new ClickParticles();
     new MagneticButtons();
+    new ResumeDownloadManager(); // Enable anti-spam downloads
 
     // Console branding
     console.log('%c🚀 Portfolio Loaded Successfully!', 'color: #06b6d4; font-size: 24px; font-weight: bold;');
@@ -623,4 +663,3 @@ window.addEventListener('error', (e) => {
 window.addEventListener('unhandledrejection', (e) => {
     console.error('Unhandled Promise Rejection:', e.reason);
 });
-                    
