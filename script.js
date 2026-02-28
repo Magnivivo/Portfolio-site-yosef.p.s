@@ -346,6 +346,7 @@ class NavbarScroll {
 class ContactForm {
     constructor() {
         this.form = document.querySelector('.contact__form');
+        this.cooldownMinutes = 10; // Users can only send 1 message every 10 minutes
         this.init();
     }
 
@@ -355,8 +356,23 @@ class ContactForm {
         this.form.addEventListener('submit', (e) => this.handleSubmit(e));
     }
 
-    handleSubmit(e) {
+    async handleSubmit(e) {
         e.preventDefault();
+
+        // 1. Anti-spam Rate Limiting
+        const lastMessageTime = localStorage.getItem('lastFormSubmit');
+        const currentTime = new Date().getTime();
+
+        if (lastMessageTime) {
+            const timeDiff = currentTime - parseInt(lastMessageTime, 10);
+            const minutesDiff = Math.floor(timeDiff / 1000 / 60);
+
+            if (minutesDiff < this.cooldownMinutes) {
+                const waitTime = this.cooldownMinutes - minutesDiff;
+                this.showMessage(`Security Protection: Please wait ${waitTime} minute(s) before sending another message.`, 'error');
+                return;
+            }
+        }
 
         const formData = new FormData(this.form);
         const data = {
@@ -365,7 +381,7 @@ class ContactForm {
             message: formData.get('message')
         };
 
-        // Validation
+        // 2. Validation
         if (!data.name || !data.email || !data.message) {
             this.showMessage('Please fill in all fields', 'error');
             return;
@@ -376,11 +392,42 @@ class ContactForm {
             return;
         }
 
-        // Simulate form submission
-        this.showMessage('Message sent successfully! ✓', 'success');
-        this.form.reset();
+        // 3. UI State Loading
+        const submitBtn = this.form.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
 
-        console.log('Form submitted:', data);
+        // 4. Send Message via FormSubmit API
+        try {
+            const response = await fetch('https://formsubmit.co/ajax/yosefpraditia@gmail.com', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: data.name,
+                    email: data.email,
+                    message: data.message,
+                    _subject: `New Portfolio Message from ${data.name}`
+                })
+            });
+
+            if (response.ok) {
+                this.showMessage('Message sent successfully! ✓', 'success');
+                this.form.reset();
+                localStorage.setItem('lastFormSubmit', currentTime.toString()); // Log successful send
+            } else {
+                throw new Error('Form submission API rejected the request.');
+            }
+        } catch (error) {
+            console.error('Email error:', error);
+            this.showMessage('Oops! Something went wrong. Please try again later.', 'error');
+        } finally {
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
+        }
     }
 
     isValidEmail(email) {
@@ -402,7 +449,7 @@ class ContactForm {
             if (msg.parentNode) {
                 msg.remove();
             }
-        }, 5000);
+        }, 6000);
     }
 }
 
